@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대화가필요해</title>
+<style>
+/* =========================
+   기본 설정
+========================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #eef0f4;
+    color: #202124;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans KR",
+        sans-serif;
+}
+button,
+input,
+textarea {
+    font-family: inherit;
+}
+button {
+    cursor: pointer;
+}
+/* =========================
+   앱 전체
+========================= */
+.app {
+    width: 100%;
+    max-width: 520px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: #ffffff;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.06);
+}
+/* =========================
+   상단 헤더
+========================= */
+.header {
+    height: 64px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #eeeeee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+.logo span {
+    color: #5b5ce2;
+}
+.header-button {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #f3f4f7;
+    font-size: 17px;
+}
+/* =========================
+   페이지
+========================= */
+.page {
+    display: none;
+    padding-bottom: 90px;
+}
+.page.active {
+    display: block;
+}
+/* =========================
+   홈
+========================= */
+.home-banner {
+    padding: 32px 20px 28px;
+    background:
+        linear-gradient(
+            135deg,
+            #f1f1ff,
+            #ffffff
+        );
+}
+.home-banner h1 {
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: -1.4px;
+}
+.home-banner p {
+    margin-top: 9px;
+    color: #858585;
+    font-size: 14px;
+}
+/* =========================
+   검색
+========================= */
+.search-box {
+    margin: 18px 20px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background: #f5f6f8;
+    border-radius: 14px;
+}
+.search-box span {
+    font-size: 18px;
+    margin-right: 9px;
+}
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+/* =========================
+   섹션
+========================= */
+.section {
+    padding: 20px;
+}
+.section-title {
+    font-size: 18px;
+    font-weight: 850;
+    letter-spacing: -0.5px;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+.more-button {
+    border: none;
+    background: none;
+    color: #999;
+    font-size: 13px;
+}
+/* =========================
+   게시판 카드
+========================= */
+.board-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 17px;
+    margin-bottom: 10px;
+    border: 1px solid #eeeeee;
+    border-radius: 16px;
+    background: white;
+    transition: 0.15s;
+}
+.board-card:active {
+    transform: scale(0.98);
+}
+.board-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+.board-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #f0f0ff;
+    font-size: 21px;
+}
+.board-card h3 {
+    font-size: 15px;
+}
+.board-card p {
+    margin-top: 4px;
+    color: #999;
+    font-size: 12px;
+}
+/* =========================
+   게시글
+========================= */
+.post {
+    padding: 17px 20px;
+    border-bottom: 1px solid #eeeeee;
+    cursor: pointer;
+}
+.post-top {
+    display: flex;
+    justify-content: space-between;
+}
+.post-author {
+    color: #777;
+    font-size: 12px;
+}
+.post-time {
+    color: #aaa;
+    font-size: 11px;
+}
+.post-title {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 750;
+    line-height: 1.45;
+}
+.post-content {
+    margin-top: 6px;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.post-meta {
+    display: flex;
+    gap: 13px;
+    margin-top: 11px;
+    color: #999;
+    font-size: 12px;
+}
+.tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #f0f0ff;
+    color: #5b5ce2;
+    font-size: 11px;
+}
+/* =========================
+   글쓰기
+========================= */
+.form {
+    padding: 20px;
+}
+.form-group {
+    margin-bottom: 18px;
+}
+.form-label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 750;
+}
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #e4e4e7;
+    border-radius: 11px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #5b5ce2;
+}
+.form-textarea {
+    min-height: 190px;
+    resize: vertical;
+}
+/* =========================
+   버튼
+========================= */
+.primary-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 13px;
+    background: #5b5ce2;
+    color: white;
+    font-size: 15px;
+    font-weight: 750;
+}
+.secondary-button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #f1f2f5;
+    color: #555;
+}
+/* =========================
+   게시글 상세
+========================= */
+.detail {
+    padding: 20px;
+}
+.back-button {
+    border: none;
+    background: #f1f2f5;
+    padding: 9px 13px;
+    border-radius: 9px;
+    color: #555;
+}
+.detail-info {
+    margin-top: 20px;
+    color: #999;
+    font-size: 12px;
+}
+.detail-title {
+    margin-top: 10px;
+    font-size: 23px;
+    line-height: 1.4;
+}
+.detail-content {
+    margin-top: 22px;
+    min-height: 180px;
+    white-space: pre-wrap;
+    color: #444;
+    line-height: 1.8;
+    font-size: 15px;
+}
+.detail-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+.like-button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #f1f2f5;
+}
+.like-button.active {
+    background: #eeeeff;
+    color: #5b5ce2;
+}
+/* =========================
+   댓글
+========================= */
+.comments {
+    margin-top: 25px;
+    border-top: 1px solid #eeeeee;
+}
+.comment-title {
+    padding: 17px 0;
+    font-size: 15px;
+    font-weight: 800;
+}
+.comment {
+    padding: 13px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+.comment-author {
+    color: #888;
+    font-size: 12px;
+}
+.comment-text {
+    margin-top: 5px;
+    color: #444;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.comment-form {
+    display: flex;
+    gap: 7px;
+    margin-top: 15px;
+}
+.comment-form input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    outline: none;
+}
+.comment-form button {
+    padding: 0 15px;
+    border: none;
+    border-radius: 10px;
+    background: #5b5ce2;
+    color: white;
+}
+.comment-reply {
+    margin-top: 8px;
+    border: none;
+    background: none;
+    color: #777;
+    font-size: 12px;
+    padding: 3px 0;
+}
+.comment-children {
+    margin-left: 18px;
+    padding-left: 12px;
+    border-left: 2px solid #f0f0f3;
+}
+.comment-reply-form {
+    display: flex;
+    gap: 7px;
+    margin-top: 8px;
+}
+.comment-reply-form input {
+    flex: 1;
+    padding: 9px 10px;
+    border: 1px solid #eeeeee;
+    border-radius: 9px;
+    outline: none;
+    font-size: 13px;
+}
+.comment-reply-form button {
+    padding: 0 11px;
+    border: none;
+    border-radius: 9px;
+    background: #5b5ce2;
+    color: white;
+    font-size: 12px;
+}
+.admin-author {
+    margin-top: 8px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    background: #f7f7f9;
+    color: #555;
+    font-size: 12px;
+}
+.admin-tools {
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+.admin-tools button {
+    flex:1;
+}
+
+/* =========================
+   급식판
+========================= */
+.meal-card {
+    padding: 19px;
+    margin-bottom: 12px;
+    border-radius: 17px;
+    background: #f7f7f9;
+}
+.meal-title {
+    font-size: 16px;
+    font-weight: 800;
+}
+.meal-menu {
+    margin-top: 10px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.8;
+}
+/* =========================
+   관리자
+========================= */
+.admin-header {
+    padding: 25px 20px;
+    background: #202124;
+    color: white;
+}
+.admin-header h1 {
+    font-size: 23px;
+}
+.admin-header p {
+    margin-top: 5px;
+    color: #aaa;
+    font-size: 13px;
+}
+.admin-section {
+    padding: 20px;
+}
+.admin-card {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #eeeeee;
+    border-radius: 13px;
+}
+.admin-card-title {
+    font-size: 14px;
+    font-weight: 750;
+}
+.admin-card-meta {
+    margin-top: 6px;
+    color: #999;
+    font-size: 11px;
+}
+.delete-button {
+    margin-top: 10px;
+    padding: 8px 11px;
+    border: none;
+    border-radius: 8px;
+    background: #fff0f0;
+    color: #e5484d;
+}
+/* =========================
+   하단 네비게이션
+========================= */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 520px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid #eeeeee;
+    z-index: 100;
+}
+.nav-button {
+    border: none;
+    background: none;
+    color: #999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+}
+.nav-button span {
+    font-size: 20px;
+}
+.nav-button.active {
+    color: #5b5ce2;
+    font-weight: 750;
+}
+/* =========================
+   빈 상태
+========================= */
+.empty {
+    padding: 45px 20px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+/* =========================
+   모바일 외 화면
+========================= */
+@media (min-width: 700px) {
+    body {
+        background: #e9ebef;
+    }
+    .app {
+        min-height: 100vh;
+    }
+}
+/* 로그인 */
+.auth-box{padding:30px 20px}.auth-title{font-size:24px;font-weight:850;margin-bottom:7px}.auth-sub{color:#999;font-size:13px;margin-bottom:25px}
+.auth-tabs{display:flex;gap:6px;background:#f3f4f7;padding:4px;border-radius:11px;margin-bottom:20px}.auth-tab{flex:1;border:0;background:transparent;padding:10px;border-radius:8px;color:#888}.auth-tab.active{background:#fff;color:#5b5ce2;font-weight:750}
+.user-status{font-size:12px;color:#777;margin-right:7px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header-actions{display:flex;align-items:center;gap:6px}.login-button{border:0;border-radius:10px;padding:9px 11px;background:#5b5ce2;color:#fff;font-size:12px;font-weight:700}
+.logout-button{border:0;border-radius:10px;padding:9px 11px;background:#f1f2f5;color:#555;font-size:12px}
+.login-required{padding:35px 20px;text-align:center;color:#888}.login-required button{margin-top:13px}
+.popular-rank{display:inline-flex;width:26px;height:26px;align-items:center;justify-content:center;border-radius:8px;background:#f0f0ff;color:#5b5ce2;font-size:12px;font-weight:800;margin-right:8px}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- =========================
+     HEADER
+========================= -->
+<header class="header">
+    <div class="logo">
+        대화가<span>필요해</span>
+    </div>
+    <div class="header-actions">
+        <span id="userStatus" class="user-status"></span>
+        <button class="header-button" onclick="openSearch()">🔍</button>
+        <button id="adminButton" class="secondary-button" style="display:none;padding:9px 11px;font-size:12px;" onclick="openAdmin()">관리자</button>
+        <button id="authButton" class="login-button" onclick="openAuth()">로그인</button>
+    </div>
+</header>
+<!-- =========================
+     HOME
+========================= -->
+<section
+    id="home"
+    class="page active"
+>
+    <div class="home-banner">
+        <h1>
+            오늘,<br>
+            무슨 이야기가 필요해?
+        </h1>
+        <p>
+            우리 학교의 이야기를 자유롭게 나눠보세요.
+        </p>
+    </div>
+    <div class="search-box">
+        <span>🔍</span>
+        <input
+            id="homeSearch"
+            placeholder="게시글을 검색해보세요"
+            onkeydown="
+                if(event.key === 'Enter')
+                searchFromHome()
+            "
+        >
+    </div>
+    <div class="section">
+        <div class="section-header">
+            <div class="section-title">
+                게시판
+            </div>
+        </div>
+        <!-- 자유게시판 -->
+        <div
+            class="board-card"
+            onclick="showPage('board')"
+        >
+            <div class="board-left">
+                <div class="board-icon">
+                    💬
+                </div>
+                <div>
+                    <h3>
+                        자유 게시판
+                    </h3>
+                    <p>
+                        우리 학교의 모든 이야기
+                    </p>
+                </div>
+            </div>
+            <div>
+                ›
+            </div>
+        </div>
+        <!-- 급식판 -->
+        <div
+            class="board-card"
+            onclick="showPage('meal')"
+        >
+            <div class="board-left">
+                <div class="board-icon">
+                    🍚
+                </div>
+                <div>
+                    <h3>
+                        급식판
+                    </h3>
+                    <p>
+                        오늘의 조식 · 중식 · 석식
+                    </p>
+                </div>
+            </div>
+            <div>
+                ›
+            </div>
+        </div>
+    </div>
+    <!-- 인기글 -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-title">
+                🔥 최근 인기 글
+            </div>
+            <button
+                class="more-button"
+                onclick="showPage('board')"
+            >
+                전체보기
+            </button>
+        </div>
+        <div id="popularPosts"></div>
+    </div>
+</section>
+<!-- =========================
+     AUTH
+========================= -->
+<section id="auth" class="page">
+    <div class="auth-box">
+        <button class="back-button" onclick="showPage('home')">← 돌아가기</button>
+        <div style="margin-top:25px">
+            <div class="auth-title">대화가<span style="color:#5b5ce2">필요해</span></div>
+            <p class="auth-sub">학교 이야기를 함께 나눠보세요.</p>
+        </div>
+        <div class="auth-tabs">
+            <button id="loginTab" class="auth-tab active" onclick="setAuthMode('login')">로그인</button>
+            <button id="signupTab" class="auth-tab" onclick="setAuthMode('signup')">회원가입</button>
+        </div>
+        <div class="form-group">
+            <label class="form-label">이메일</label>
+            <input id="authId" class="form-input" maxlength="30" autocomplete="email" placeholder="이메일을 입력해주세요">
+        </div>
+        <div class="form-group">
+            <label class="form-label">비밀번호</label>
+            <input id="authPw" class="form-input" type="password" autocomplete="current-password" maxlength="50" placeholder="비밀번호"
+                   onkeydown="if(event.key==='Enter') submitAuth()">
+        </div>
+        <div id="authNameGroup" class="form-group" style="display:none">
+            <label class="form-label">실명</label>
+            <input id="authName" class="form-input" maxlength="20" autocomplete="nickname" placeholder="회원가입에 사용할 실명을 입력해주세요">
+        </div>
+        <button id="authSubmit" class="primary-button" onclick="submitAuth()">로그인</button>
+        <p id="authHint" style="text-align:center;color:#999;font-size:12px;margin-top:13px">
+            계정이 없다면 위의 <b>회원가입</b>을 눌러주세요.
+        </p>
+    </div>
+</section>
+<!-- =========================
+     BOARD
+========================= -->
+<section
+    id="board"
+    class="page"
+>
+    <div class="section">
+        <div class="section-header">
+            <div>
+                <div class="section-title">
+                    자유 게시판
+                </div>
+                <p style="
+                    color:#999;
+                    font-size:12px;
+                    margin-top:4px;
+                ">
+                    자유롭게 이야기해보세요.
+                </p>
+            </div>
+            <button
+                class="secondary-button"
+                onclick="showWritePage()"
+            >
+                글쓰기
+            </button>
+        </div>
+        <div
+            class="search-box"
+            style="margin:0;"
+        >
+            <span>🔍</span>
+            <input
+                id="boardSearch"
+                placeholder="제목 또는 내용을 검색"
+                oninput="renderBoard(this.value)"
+            >
+        </div>
+    </div>
+    <div id="postList"></div>
+</section>
+<!-- =========================
+     WRITE
+========================= -->
+<section
+    id="write"
+    class="page"
+>
+    <div class="section">
+        <button
+            class="back-button"
+            onclick="showPage('board')"
+        >
+            ← 돌아가기
+        </button>
+    </div>
+    <div class="form">
+        <div class="section-title"
+             style="margin-bottom:25px;">
+            새 글 작성
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                제목
+            </label>
+            <input
+                id="postTitle"
+                class="form-input"
+                maxlength="80"
+                placeholder="제목을 입력해주세요"
+            >
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                내용
+            </label>
+            <textarea
+                id="postContent"
+                class="form-textarea"
+                placeholder="하고 싶은 이야기를 적어주세요."
+            ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                태그
+            </label>
+            <input
+                id="postTag"
+                class="form-input"
+                placeholder="예: 학교생활"
+            >
+        </div>
+        <div class="form-group">
+            <label class="form-label">작성자 표시</label>
+            <select id="postVisibility" class="form-input">
+                <option value="anonymous">익명으로 작성</option>
+                <option value="real">실명으로 작성</option>
+            </select>
+        </div>
+        <button
+            class="primary-button"
+            onclick="createPost()"
+        >
+            게시글 등록
+        </button>
+    </div>
+</section>
+<!-- =========================
+     DETAIL
+========================= -->
+<section
+    id="detail"
+    class="page"
+>
+    <div id="detailContent"></div>
+</section>
+<!-- =========================
+     MEAL
+========================= -->
+<section
+    id="meal"
+    class="page"
+>
+    <div class="section">
+        <div class="section-title">
+            🍚 급식판
+        </div>
+        <p
+            id="mealDate"
+            style="
+                margin-top:5px;
+                color:#999;
+                font-size:12px;
+            "
+        ></p>
+        <div
+            id="mealList"
+            style="margin-top:18px;"
+        ></div>
+    </div>
+</section>
+<!-- =========================
+     ADMIN
+========================= -->
+<section
+    id="admin"
+    class="page"
+>
+    <div class="admin-header">
+        <h1>
+            급식 관리자
+        </h1>
+        <p>
+            오늘의 조식 · 중식 · 석식을 수정하세요.
+        </p>
+    </div>
+    <div class="admin-section">
+        <div class="form-group">
+            <label class="form-label">
+                🌅 조식
+            </label>
+            <textarea
+                id="adminBreakfast"
+                class="form-textarea"
+                style="min-height:100px;"
+            ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                ☀️ 중식
+            </label>
+            <textarea
+                id="adminLunch"
+                class="form-textarea"
+                style="min-height:100px;"
+            ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">
+                🌙 석식
+            </label>
+            <textarea
+                id="adminDinner"
+                class="form-textarea"
+                style="min-height:100px;"
+            ></textarea>
+        </div>
+        <button
+            class="primary-button"
+            onclick="updateMeals()"
+        >
+            급식 저장
+        </button>
+
+        <div style="margin-top:35px;">
+            <div class="section-title">👤 게시글 작성자 정보</div>
+            <p style="color:#999;font-size:12px;margin-top:5px;">
+                관리자에게만 실제 회원 정보가 표시됩니다.
+            </p>
+            <div id="adminPostList" style="margin-top:15px;"></div>
+        </div>
+    </div>
+</section>
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+<nav class="bottom-nav">
+    <button
+        class="nav-button active"
+        onclick="showPage('home')"
+    >
+        <span>⌂</span>
+        홈
+    </button>
+    <button
+        class="nav-button"
+        onclick="showPage('board')"
+    >
+        <span>💬</span>
+        게시판
+    </button>
+    <button
+        class="nav-button"
+        onclick="showPage('meal')"
+    >
+        <span>🍚</span>
+        급식
+    </button>
+</nav>
+</div>
+
+<!-- =========================
+     FIREBASE
+========================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  import {
+    getFirestore,
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    setDoc,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    query,
+    where,
+    runTransaction,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD37-Izf1BPBb-Wr00C86oeWAkDAhMCr8I",
+    authDomain: "school-community-1d5c8.firebaseapp.com",
+    projectId: "school-community-1d5c8",
+    storageBucket: "school-community-1d5c8.firebasestorage.app",
+    messagingSenderId: "1003910711495",
+    appId: "1:1003910711495:web:83bbbf44ecf524b0a556e2",
+    measurementId: "G-BF4V78BH3Y"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // 모듈 스크립트에서 불러온 Firebase 함수들을 기존 일반 <script>에서도 사용할 수 있게 공개합니다.
+  Object.assign(window, {
+    getDoc,
+    getDocs,
+    setDoc,
+    addDoc,
+    updateDoc,
+    deleteDoc,
+    collection,
+    doc,
+    query,
+    where,
+    runTransaction,
+    serverTimestamp,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+  });
+
+  window.firebaseAuth = auth;
+  window.firebaseDb = db;
+  window.firebaseReady = Promise.resolve({ auth, db });
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      try {
+        const ref = doc(db, "users", user.uid);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          window.firebaseProfile = { uid: user.uid, ...snap.data() };
+        } else {
+          await setDoc(ref, {
+            email: user.email || "",
+            name: user.email ? user.email.split("@")[0] : "학생",
+            role: "student",
+            createdAt: serverTimestamp()
+          }, { merge: true });
+          window.firebaseProfile = {
+            uid: user.uid,
+            email: user.email || "",
+            name: user.email ? user.email.split("@")[0] : "학생",
+            role: "student"
+          };
+        }
+      } catch (error) {
+        console.error("사용자 정보 불러오기 실패:", error);
+        window.firebaseProfile = {
+          uid: user.uid,
+          email: user.email || "",
+          name: user.email ? user.email.split("@")[0] : "학생",
+          role: "student"
+        };
+      }
+    } else {
+      window.firebaseProfile = null;
+    }
+
+    if (typeof window.refreshFirebaseUI === "function") {
+      window.refreshFirebaseUI();
+    }
+  });
+
+  console.log("🔥 Firebase 연결 성공!");
+</script>
+
+<script>
+/* =========================================
+   Firebase 기반 데이터
+========================================= */
+let posts = [];
+let comments = [];
+let meals = {
+    breakfast: "등록된 조식 메뉴가 없습니다.",
+    lunch: "등록된 중식 메뉴가 없습니다.",
+    dinner: "등록된 석식 메뉴가 없습니다."
+};
+let currentPostId = null;
+let authMode = "login";
+let currentUser = null;
+
+function escapeHTML(str) {
+    if (str === null || str === undefined) return "";
+    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+
+function timeAgo(dateValue) {
+    let date;
+    if (!dateValue) return "방금 전";
+    if (dateValue && typeof dateValue.toDate === "function") date = dateValue.toDate();
+    else date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return "방금 전";
+    const diffSec = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+    if (diffSec < 60) return "방금 전";
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin}분 전`;
+    const diffHour = Math.floor(diffMin / 60);
+    if (diffHour < 24) return `${diffHour}시간 전`;
+    const diffDay = Math.floor(diffHour / 24);
+    return `${diffDay}일 전`;
+}
+
+function dateKey() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+}
+
+function isAdmin() {
+    return !!(currentUser && currentUser.role === "admin");
+}
+
+function getAuthorName(authorId, fallback = "알 수 없음") {
+    const post = posts.find(p => p.authorId === authorId);
+    if (post && post.authorName) return post.authorName;
+    return fallback;
+}
+
+function visibleAuthor(item) {
+    if (isAdmin()) return item.authorName || getAuthorName(item.authorId);
+    return item.anonymous === false ? (item.authorName || "익명") : "익명";
+}
+
+/* =========================================
+   Firebase 대기
+========================================= */
+async function firebase() {
+    if (!window.firebaseReady) throw new Error("Firebase가 아직 준비되지 않았습니다.");
+    return await window.firebaseReady;
+}
+
+/* =========================================
+   로그인 / 로그아웃
+========================================= */
+function openAuth(){
+    if(currentUser){ logout(); return; }
+    setAuthMode("login");
+    showPage("auth");
+    setTimeout(() => document.getElementById("authId")?.focus(), 50);
+}
+
+function setAuthMode(mode){
+    authMode = mode;
+    document.getElementById("loginTab").classList.toggle("active", mode === "login");
+    document.getElementById("signupTab").classList.toggle("active", mode === "signup");
+    document.getElementById("authNameGroup").style.display = mode === "signup" ? "block" : "none";
+    document.getElementById("authSubmit").textContent = mode === "login" ? "로그인" : "회원가입";
+    document.getElementById("authHint").innerHTML = mode === "login"
+        ? "계정이 없다면 위의 <b>회원가입</b>을 눌러주세요."
+        : "가입 후 바로 로그인됩니다.";
+    document.getElementById("authPw").autocomplete = mode === "login" ? "current-password" : "new-password";
+}
+
+async function submitAuth(){
+    const email = document.getElementById("authId").value.trim();
+    const pw = document.getElementById("authPw").value;
+
+    if(!email || !pw){
+        alert("이메일과 비밀번호를 입력해주세요.");
+        return;
+    }
+    if(!email.includes("@")){
+        alert("이메일 형식으로 입력해주세요. 예: student@example.com");
+        return;
+    }
+    if(pw.length < 6){
+        alert("비밀번호는 6자 이상이어야 합니다.");
+        return;
+    }
+
+    try {
+        const { auth, db } = await firebase();
+        const submitButton = document.getElementById("authSubmit");
+        submitButton.disabled = true;
+
+        if(authMode === "signup"){
+            const name = document.getElementById("authName").value.trim();
+            if(!name){
+                alert("실명을 입력해주세요.");
+                submitButton.disabled = false;
+                return;
+            }
+
+            const credential = await createUserWithEmailAndPassword(auth, email, pw);
+            await setDoc(doc(db, "users", credential.user.uid), {
+                email,
+                name,
+                role: "student",
+                createdAt: serverTimestamp()
+            }, { merge: true });
+
+            alert("회원가입이 완료되었습니다.");
+            clearAuth();
+            showPage("home");
+        } else {
+            await signInWithEmailAndPassword(auth, email, pw);
+            clearAuth();
+            showPage("home");
+        }
+    } catch(error) {
+        console.error(error);
+        const code = error?.code || "";
+        if(code.includes("email-already-in-use")) alert("이미 가입된 이메일입니다.");
+        else if(code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) alert("이메일 또는 비밀번호가 올바르지 않습니다.");
+        else if(code.includes("weak-password")) alert("비밀번호는 6자 이상으로 설정해주세요.");
+        else if(code.includes("invalid-email")) alert("올바른 이메일 형식을 입력해주세요.");
+        else alert("로그인/회원가입 중 오류가 발생했습니다. 콘솔을 확인해주세요.");
+    } finally {
+        const btn = document.getElementById("authSubmit");
+        if(btn) btn.disabled = false;
+    }
+}
+
+async function logout(){
+    try {
+        const { auth } = await firebase();
+        await signOut(auth);
+        currentUser = null;
+        updateAuthUI();
+        showPage("home");
+        alert("로그아웃되었습니다.");
+    } catch(error){
+        console.error(error);
+        alert("로그아웃 중 오류가 발생했습니다.");
+    }
+}
+
+function clearAuth(){
+    ["authId","authPw","authName"].forEach(id=>{
+        const e=document.getElementById(id);
+        if(e) e.value="";
+    });
+}
+
+function updateAuthUI(){
+    const status=document.getElementById("userStatus");
+    const btn=document.getElementById("authButton");
+    const adminBtn=document.getElementById("adminButton");
+    if(!status||!btn)return;
+
+    if(currentUser){
+        status.textContent = isAdmin() ? "관리자" : `${currentUser.name || "학생"}님`;
+        btn.textContent="로그아웃";
+        btn.className="logout-button";
+        if(adminBtn) adminBtn.style.display=isAdmin() ? "inline-block" : "none";
+    }else{
+        status.textContent="";
+        btn.textContent="로그인";
+        btn.className="login-button";
+        if(adminBtn) adminBtn.style.display="none";
+    }
+}
+
+window.refreshFirebaseUI = function(){
+    currentUser = window.firebaseProfile || null;
+    updateAuthUI();
+    loadPosts().then(() => renderPopular()).catch(console.error);
+    loadMeals().then(() => renderMeals()).catch(console.error);
+};
+
+function requireLogin(){
+    if(currentUser)return true;
+    alert("로그인이 필요한 기능입니다.");
+    showPage("auth");
+    return false;
+}
+
+/* =========================================
+   페이지 이동
+========================================= */
+function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+    const page = document.getElementById(pageId);
+    if (!page) return;
+    page.classList.add("active");
+
+    if (pageId === "home") renderPopular();
+    if (pageId === "board") loadPosts().then(() => renderBoard()).catch(console.error);
+    if (pageId === "meal") loadMeals().then(() => renderMeals()).catch(console.error);
+    if (pageId === "admin") {
+        if(!isAdmin()){
+            alert("관리자만 이용할 수 있습니다.");
+            showPage("home");
+            return;
+        }
+        loadAdminMeals();
+        renderAdminPosts();
+    }
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openSearch() {
+    showPage("board");
+    setTimeout(() => document.getElementById("boardSearch")?.focus(), 100);
+}
+function openAdmin() { showPage("admin"); }
+function searchFromHome() {
+    const query = document.getElementById("homeSearch").value.trim();
+    showPage("board");
+    const boardSearch = document.getElementById("boardSearch");
+    if(boardSearch){ boardSearch.value=query; renderBoard(query); }
+}
+
+/* =========================================
+   게시글
+========================================= */
+async function loadPosts(){
+    try {
+        const { db } = await firebase();
+        const snap = await getDocs(collection(db, "posts"));
+        posts = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        posts.sort((a,b) => {
+            const ad = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+            const bd = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+            return bd-ad;
+        });
+    } catch(error){
+        console.error("게시글 불러오기 실패:", error);
+        posts=[];
+    }
+}
+
+function showWritePage() {
+    if(!requireLogin()) return;
+    document.getElementById("postVisibility").value = "anonymous";
+    showPage("write");
+}
+
+async function createPost() {
+    if(!requireLogin()) return;
+    const title=document.getElementById("postTitle").value.trim();
+    const content=document.getElementById("postContent").value.trim();
+    const tag=document.getElementById("postTag").value.trim();
+    const anonymous=document.getElementById("postVisibility").value !== "real";
+
+    if(!title){alert("제목을 입력해주세요.");return;}
+    if(!content){alert("내용을 입력해주세요.");return;}
+
+    try {
+        const { db } = await firebase();
+        await addDoc(collection(db,"posts"),{
+            title,
+            content,
+            tag:tag || "자유",
+            authorId:currentUser.uid,
+            authorName:currentUser.name || "학생",
+            authorEmail:currentUser.email || "",
+            anonymous,
+            likes:0,
+            commentCount:0,
+            createdAt:serverTimestamp()
+        });
+        document.getElementById("postTitle").value="";
+        document.getElementById("postContent").value="";
+        document.getElementById("postTag").value="";
+        alert("게시글이 등록되었습니다.");
+        await loadPosts();
+        showPage("board");
+    } catch(error){
+        console.error(error);
+        alert("게시글 등록에 실패했습니다.");
+    }
+}
+
+function renderBoard(keyword="") {
+    const container=document.getElementById("postList");
+    const lowerKeyword=keyword.toLowerCase();
+    const filtered=posts.filter(post =>
+        String(post.title||"").toLowerCase().includes(lowerKeyword) ||
+        String(post.content||"").toLowerCase().includes(lowerKeyword) ||
+        String(post.tag||"").toLowerCase().includes(lowerKeyword)
+    );
+
+    if(filtered.length===0){
+        container.innerHTML='<div class="empty">게시글이 없습니다.</div>';
+        return;
+    }
+    container.innerHTML=filtered.map(post=>postHTML(post)).join("");
+}
+
+function postHTML(post) {
+    const commentCount=Number(post.commentCount||0);
+    return `
+        <article class="post" onclick="openPost('${post.id}')">
+            <div class="post-top">
+                <span class="post-author">${escapeHTML(visibleAuthor(post))}</span>
+                <span class="post-time">${timeAgo(post.createdAt)}</span>
+            </div>
+            <div class="post-title">${escapeHTML(post.title)}</div>
+            <div class="post-content">${escapeHTML(String(post.content||"").substring(0,100))}${String(post.content||"").length>100?"...":""}</div>
+            <span class="tag">#${escapeHTML(post.tag||"자유")}</span>
+            <div class="post-meta">
+                <span>👍 ${Number(post.likes||0)}</span>
+                <span>💬 ${commentCount}</span>
+            </div>
+        </article>`;
+}
+
+function renderPopular() {
+    const container=document.getElementById("popularPosts");
+    const popular=[...posts].sort((a,b)=>
+        ((Number(b.likes)||0)*2+(Number(b.commentCount)||0))-((Number(a.likes)||0)*2+(Number(a.commentCount)||0)) ||
+        new Date(b.createdAt?.toDate ? b.createdAt.toDate() : b.createdAt || 0)-new Date(a.createdAt?.toDate ? a.createdAt.toDate() : a.createdAt || 0)
+    ).slice(0,5);
+
+    if(popular.length===0){container.innerHTML='<div class="empty">아직 게시글이 없습니다.</div>';return;}
+    container.innerHTML=popular.map((post,i)=>postHTML(post).replace('<div class="post-title">','<div class="post-title"><span class="popular-rank">'+(i+1)+'</span>')).join("");
+}
+
+/* =========================================
+   게시글 상세 / 댓글
+========================================= */
+async function openPost(id) {
+    currentPostId=id;
+    const post=posts.find(p=>p.id===id);
+    if(!post)return;
+    await loadComments(id);
+    showPage("detail");
+    renderPostDetail(post);
+}
+
+async function loadComments(postId){
+    try{
+        const { db }=await firebase();
+        const q=query(collection(db,"comments"),where("postId","==",postId));
+        const snap=await getDocs(q);
+        comments=snap.docs.map(d=>({id:d.id,...d.data()}));
+        comments.sort((a,b)=>{
+            const ad=a.createdAt?.toDate?a.createdAt.toDate().getTime():new Date(a.createdAt||0).getTime();
+            const bd=b.createdAt?.toDate?b.createdAt.toDate().getTime():new Date(b.createdAt||0).getTime();
+            return ad-bd;
+        });
+    }catch(error){console.error("댓글 불러오기 실패:",error);comments=[];}
+}
+
+function renderPostDetail(post) {
+    const postComments=comments.filter(c=>String(c.postId)===String(post.id));
+    const parentComments=postComments.filter(c=>!c.parentId);
+    document.getElementById("detailContent").innerHTML=`
+        <div class="detail">
+            <button class="back-button" onclick="showPage('board')">← 자유 게시판</button>
+            <div class="detail-info">${isAdmin()?"작성자: "+escapeHTML(post.authorName||"알 수 없음"):escapeHTML(visibleAuthor(post))} · ${timeAgo(post.createdAt)}</div>
+            <h1 class="detail-title">${escapeHTML(post.title)}</h1>
+            <div class="detail-content">${escapeHTML(post.content)}</div>
+            <span class="tag">#${escapeHTML(post.tag||"자유")}</span>
+            <div class="detail-actions">
+                <button class="like-button" onclick="likePost('${post.id}')">👍 좋아요 ${Number(post.likes||0)}</button>
+            </div>
+            <div class="comments">
+                <div class="comment-title">댓글 ${postComments.length}개</div>
+                <div id="commentList">${parentComments.length===0?'<div class="empty">작성된 댓글이 없습니다. 첫 댓글을 남겨보세요!</div>':parentComments.map(c=>renderCommentHTML(c,postComments)).join("")}</div>
+                <div class="comment-form">
+                    <input id="commentInput" placeholder="댓글을 입력해 주세요..." onkeydown="if(event.key==='Enter') addComment('${post.id}')">
+                    <button onclick="addComment('${post.id}')">등록</button>
+                </div>
+            </div>
+        </div>`;
+}
+
+function renderCommentHTML(comment,allComments){
+    const children=allComments.filter(c=>c.parentId===comment.id);
+    return `
+        <div class="comment">
+            <div class="comment-author">${isAdmin()?escapeHTML(comment.authorName||"알 수 없음"):escapeHTML(comment.anonymous===false?(comment.authorName||"익명"):"익명")} · ${timeAgo(comment.createdAt)}</div>
+            <div class="comment-text">${escapeHTML(comment.text)}</div>
+            <button class="comment-reply" onclick="toggleReplyForm('${comment.id}')">답글 달기</button>
+            <div id="replyForm-${comment.id}" class="comment-reply-form" style="display:none;">
+                <input id="replyInput-${comment.id}" placeholder="답글을 입력하세요..." onkeydown="if(event.key==='Enter') addReply('${comment.postId}','${comment.id}')">
+                <button onclick="addReply('${comment.postId}','${comment.id}')">등록</button>
+            </div>
+            ${children.length?`<div class="comment-children">${children.map(child=>renderCommentHTML(child,allComments)).join("")}</div>`:""}
+        </div>`;
+}
+
+async function likePost(postId){
+    if(!requireLogin())return;
+    try{
+        const {db}=await firebase();
+        const postRef=doc(db,"posts",postId);
+        const likeRef=doc(db,"posts",postId,"likes",currentUser.uid);
+        await runTransaction(db,async(transaction)=>{
+            const [postSnap,likeSnap]=await Promise.all([transaction.get(postRef),transaction.get(likeRef)]);
+            if(!postSnap.exists())throw new Error("게시글이 없습니다.");
+            const currentLikes=Number(postSnap.data().likes||0);
+            if(likeSnap.exists()){
+                alert("이미 공감한 게시글입니다.");
+                return;
+            }
+            transaction.set(likeRef,{uid:currentUser.uid,createdAt:serverTimestamp()});
+            transaction.update(postRef,{likes:currentLikes+1});
+        });
+        await loadPosts();
+        const post=posts.find(p=>p.id===postId);
+        if(post){await loadComments(postId);renderPostDetail(post);}
+    }catch(error){console.error(error);alert("공감 처리 중 오류가 발생했습니다.");}
+}
+
+async function addComment(postId){
+    if(!requireLogin())return;
+    const input=document.getElementById("commentInput");
+    const text=input.value.trim();
+    if(!text){alert("댓글 내용을 입력해 주세요.");return;}
+    try{
+        const {db}=await firebase();
+        await addDoc(collection(db,"comments"),{
+            postId,
+            parentId:null,
+            authorId:currentUser.uid,
+            authorName:currentUser.name||"학생",
+            authorEmail:currentUser.email||"",
+            anonymous:true,
+            text,
+            createdAt:serverTimestamp()
+        });
+        const postRef=doc(db,"posts",postId);
+        const postSnap=await getDoc(postRef);
+        if(postSnap.exists()) await updateDoc(postRef,{commentCount:Number(postSnap.data().commentCount||0)+1});
+        await loadPosts();
+        await loadComments(postId);
+        const post=posts.find(p=>p.id===postId);
+        if(post)renderPostDetail(post);
+    }catch(error){console.error(error);alert("댓글 등록에 실패했습니다.");}
+}
+
+function toggleReplyForm(commentId){
+    const form=document.getElementById(`replyForm-${commentId}`);
+    if(form)form.style.display=form.style.display==="none"?"flex":"none";
+}
+
+async function addReply(postId,parentId){
+    if(!requireLogin())return;
+    const input=document.getElementById(`replyInput-${parentId}`);
+    const text=input.value.trim();
+    if(!text){alert("답글 내용을 입력해 주세요.");return;}
+    try{
+        const {db}=await firebase();
+        await addDoc(collection(db,"comments"),{
+            postId,
+            parentId,
+            authorId:currentUser.uid,
+            authorName:currentUser.name||"학생",
+            authorEmail:currentUser.email||"",
+            anonymous:true,
+            text,
+            createdAt:serverTimestamp()
+        });
+        const postRef=doc(db,"posts",postId);
+        const postSnap=await getDoc(postRef);
+        if(postSnap.exists()) await updateDoc(postRef,{commentCount:Number(postSnap.data().commentCount||0)+1});
+        await loadPosts();
+        await loadComments(postId);
+        const post=posts.find(p=>p.id===postId);
+        if(post)renderPostDetail(post);
+    }catch(error){console.error(error);alert("답글 등록에 실패했습니다.");}
+}
+
+/* =========================================
+   급식
+========================================= */
+async function loadMeals(){
+    try{
+        const {db}=await firebase();
+        const snap=await getDoc(doc(db,"meals",dateKey()));
+        if(snap.exists()) meals={...meals,...snap.data()};
+        else meals={breakfast:"등록된 조식 메뉴가 없습니다.",lunch:"등록된 중식 메뉴가 없습니다.",dinner:"등록된 석식 메뉴가 없습니다."};
+    }catch(error){console.error("급식 불러오기 실패:",error);}
+}
+
+function renderMeals(){
+    const dateElem=document.getElementById("mealDate");
+    const listElem=document.getElementById("mealList");
+    const today=new Date();
+    dateElem.textContent=`${today.getFullYear()}년 ${today.getMonth()+1}월 ${today.getDate()}일`;
+    listElem.innerHTML=`
+        <div class="meal-card"><div class="meal-title">🌅 조식</div><div class="meal-menu">${escapeHTML(meals.breakfast)}</div></div>
+        <div class="meal-card"><div class="meal-title">☀️ 중식</div><div class="meal-menu">${escapeHTML(meals.lunch)}</div></div>
+        <div class="meal-card"><div class="meal-title">🌙 석식</div><div class="meal-menu">${escapeHTML(meals.dinner)}</div></div>`;
+}
+
+function loadAdminMeals(){
+    document.getElementById("adminBreakfast").value=meals.breakfast||"";
+    document.getElementById("adminLunch").value=meals.lunch||"";
+    document.getElementById("adminDinner").value=meals.dinner||"";
+}
+
+async function updateMeals(){
+    if(!isAdmin()){alert("관리자만 이용할 수 있습니다.");return;}
+    meals.breakfast=document.getElementById("adminBreakfast").value.trim()||"등록된 조식 메뉴가 없습니다.";
+    meals.lunch=document.getElementById("adminLunch").value.trim()||"등록된 중식 메뉴가 없습니다.";
+    meals.dinner=document.getElementById("adminDinner").value.trim()||"등록된 석식 메뉴가 없습니다.";
+    try{
+        const {db}=await firebase();
+        await setDoc(doc(db,"meals",dateKey()),{...meals,updatedAt:serverTimestamp(),updatedBy:currentUser.uid},{merge:true});
+        alert("급식 정보가 저장되었습니다.");
+        renderMeals();
+    }catch(error){console.error(error);alert("급식 저장에 실패했습니다.");}
+}
+
+async function renderAdminPosts(){
+    if(!isAdmin())return;
+    await loadPosts();
+    const listElem=document.getElementById("adminPostList");
+    if(posts.length===0){listElem.innerHTML='<div class="empty">게시글이 없습니다.</div>';return;}
+    listElem.innerHTML=posts.map(post=>`
+        <div class="admin-card">
+            <div class="admin-card-title">${escapeHTML(post.title)}</div>
+            <div class="admin-card-meta">작성자: ${escapeHTML(post.authorName||"알 수 없음")} (${escapeHTML(post.authorEmail||post.authorId||"")}) | 작성일: ${timeAgo(post.createdAt)}</div>
+            <button class="delete-button" onclick="deletePostByAdmin('${post.id}')">삭제</button>
+        </div>`).join("");
+}
+
+async function deletePostByAdmin(postId){
+    if(!isAdmin())return;
+    if(!confirm("해당 게시글을 삭제하시겠습니까?"))return;
+    try{
+        const {db}=await firebase();
+        const q=query(collection(db,"comments"),where("postId","==",postId));
+        const snap=await getDocs(q);
+        await Promise.all(snap.docs.map(d=>deleteDoc(d.ref)));
+        await deleteDoc(doc(db,"posts",postId));
+        await renderAdminPosts();
+        await loadPosts();
+        renderPopular();
+        alert("게시글이 삭제되었습니다.");
+    }catch(error){console.error(error);alert("게시글 삭제에 실패했습니다.");}
+}
+
+/* =========================================
+   초기화
+========================================= */
+window.onload=function(){
+    updateAuthUI();
+    renderPopular();
+};
+</script>
+</body>
+</html>
